@@ -14,6 +14,16 @@ function buildSettingsCard() {
   // get organization object
   var organization = getObjectByID(organizationSample, userProperties.getProperty('organizationID'));
   Logger.log("Current Organization on buildSettingsCard: " + organization.name);
+
+  // get scheduleID
+  
+  var schedules = scheduleOptions.filter(function(schedule){
+    return schedule.organization_id === organization.id
+  });
+  
+  var scheduleID = userProperties.getProperty('currentScheduledID') || schedules[0].id;
+  
+  userProperties.setProperty('currentScheduleID', scheduleID);  
   
   // get the current member associated with current organizatio
   var currentMember = getObjectByID(memberSample, userProperties.getProperty('currentMemberID'));
